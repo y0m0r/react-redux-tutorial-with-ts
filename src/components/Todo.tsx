@@ -3,15 +3,26 @@ import {connect} from "react-redux";
 import cx from "classnames";
 import {toggleTodo} from "../redux/actions";
 
+
 export type TodoType = {
     id: number
     completed: boolean
     content: string
 }
-type Props = {
-    todo: TodoType
+
+interface StateProps {
+
+}
+
+interface DispatchProps {
     toggleTodo: (id: number) => void
 }
+
+interface OwnProps {
+    todo: TodoType
+}
+
+type Props = StateProps & DispatchProps & OwnProps
 
 
 const Todo = (props: Props) => (
@@ -29,7 +40,7 @@ const Todo = (props: Props) => (
 );
 
 // export default Todo;
-export default connect(
+export default connect<StateProps, DispatchProps, OwnProps>(
     null,
     {toggleTodo}
 )(Todo);

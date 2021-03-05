@@ -1,16 +1,27 @@
 import React from "react";
 import cx from "classnames";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {setFilter} from "../redux/actions";
 import {VISIBILITY_FILTERS} from "../constants";
-
-type Props = {
-    setFilter: (filter: string) => void
-    activeFilter: string
-}
+import {RootState} from "../redux/reducers";
 
 
-class VisibilityFilters extends React.Component<Props> {
+const mapState = (state: RootState) => ({
+    activeFilter: state.visibilityFilter
+})
+
+const mapDispatch = {setFilter: setFilter}
+
+
+const connector = connect(
+    mapState,
+    mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+class VisibilityFilters extends React.Component<PropsFromRedux> {
 
     render() {
         return <div className="visibility-filters">
@@ -38,13 +49,6 @@ class VisibilityFilters extends React.Component<Props> {
 
 }
 
-const mapStateToProps = (state: any) => {
-    return {activeFilter: state.visibilityFilter};
-};
 
+export default connector(VisibilityFilters)
 
-export default connect(
-    mapStateToProps,
-    {setFilter}
-)(VisibilityFilters);
-// export default VisibilityFilters;

@@ -2,4 +2,8 @@ import {combineReducers} from "redux";
 import visibilityFilter from "./visibilityFilter";
 import todos from "./todos";
 
-export default combineReducers({todos, visibilityFilter});
+const rootReducer = combineReducers({todos, visibilityFilter});
+
+export type RootState = ReturnType<typeof rootReducer>
+
+export default rootReducer;

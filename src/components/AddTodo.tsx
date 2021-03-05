@@ -1,12 +1,25 @@
 import React from "react";
-import {connect} from "react-redux";
-import {addTodo} from "../redux/actions";
+import {connect, ConnectedProps} from "react-redux";
+import {addTodo, setFilter} from "../redux/actions";
+import {RootState} from "../redux/reducers";
 
 
-type Props = {
+interface StateProps {
+}
+
+interface DispatchProps {
     addTodo: (input: string) => void
 }
 
+interface OwnProps {
+}
+
+type Props = StateProps & DispatchProps & OwnProps
+
+
+const mapDispatch = {addTodo}
+
+// local state
 type State = {
     input: string
 }
@@ -22,7 +35,7 @@ class AddTodo extends React.Component<Props, State> {
     };
 
     handleAddTodo = () => {
-        this.props.addTodo(this.state.input);
+        this.props.addTodo(this.state.input); // dispatch action!!!!
         this.setState({input: ""});
     };
 
@@ -41,8 +54,8 @@ class AddTodo extends React.Component<Props, State> {
     }
 }
 
-export default connect(
+export default connect<StateProps, DispatchProps, OwnProps>(
     null,
-    {addTodo}
+    mapDispatch
 )(AddTodo);
 // export default AddTodo;

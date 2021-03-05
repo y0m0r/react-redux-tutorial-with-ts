@@ -2,11 +2,15 @@ import {ADD_TODO, TOGGLE_TODO} from "../actionTypes";
 
 type Action = {
     type: string,
-    payload: any
+    payload: {
+        id: number,
+        content: string
+    }
 }
+
 type State = {
     allIds: number[],
-    byIds: { [key: string]: { [key: string]: any } }
+    byIds: { [key: number]: { [key: string]: any } }
 }
 
 const initialState: State = {
@@ -15,7 +19,6 @@ const initialState: State = {
 };
 
 const todos = (state = initialState, action: Action) => {
-    console.log('reducer todos',state, action)
 
     switch (action.type) {
         case ADD_TODO: {

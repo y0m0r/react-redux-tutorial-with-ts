@@ -1,5 +1,6 @@
 import {VISIBILITY_FILTERS} from "../constants";
 import {TodoType} from "../components/Todo";
+// import {RootState} from "./reducers";
 
 type Store = {
     todos: any
