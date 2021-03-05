@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import cx from "classnames";
 import {toggleTodo} from "../redux/actions";
 
@@ -10,19 +10,21 @@ export type TodoType = {
     content: string
 }
 
-interface StateProps {
 
-}
+const mapDispatch = {toggleTodo}
 
-interface DispatchProps {
-    toggleTodo: (id: number) => void
-}
 
-interface OwnProps {
+const connector = connect(
+    null,
+    mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+interface Props extends PropsFromRedux {
     todo: TodoType
 }
-
-type Props = StateProps & DispatchProps & OwnProps
 
 
 const Todo = (props: Props) => (
@@ -39,8 +41,4 @@ const Todo = (props: Props) => (
     </li>
 );
 
-// export default Todo;
-export default connect<StateProps, DispatchProps, OwnProps>(
-    null,
-    {toggleTodo}
-)(Todo);
+export default connector(Todo);
