@@ -18,7 +18,7 @@ const initialState: State = {
     byIds: {}
 };
 
-const todos = (state = initialState, action: Action) => {
+const todos = (state = initialState, action: Action):State => {
 
     switch (action.type) {
         case ADD_TODO: {

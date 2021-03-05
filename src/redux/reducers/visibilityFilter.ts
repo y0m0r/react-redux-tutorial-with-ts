@@ -3,19 +3,18 @@ import {VISIBILITY_FILTERS} from "../../constants";
 
 type Action = {
     type: string
-    payload: any
+    payload: {
+        filter: string
+    }
 
 }
 
 
-// TODO State type
-
 const initialState = VISIBILITY_FILTERS.ALL;
 
 
-const visibilityFilter = (state: string = initialState, action: Action) => {
+const visibilityFilter = (state: string = initialState, action: Action): string => {
 
-    console.log('reducer visibilityFilter', state, action)
 
     switch (action.type) {
         case SET_FILTER: {
