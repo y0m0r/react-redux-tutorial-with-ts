@@ -1,31 +1,26 @@
 import React from "react";
 import {connect, ConnectedProps} from "react-redux";
-import {addTodo, setFilter} from "../redux/actions";
-import {RootState} from "../redux/reducers";
-
-
-interface StateProps {
-}
-
-interface DispatchProps {
-    addTodo: (input: string) => void
-}
-
-interface OwnProps {
-}
-
-type Props = StateProps & DispatchProps & OwnProps
+import {addTodo} from "../redux/actions";
 
 
 const mapDispatch = {addTodo}
+
+
+const connector = connect(
+    null,
+    mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
 
 // local state
 type State = {
     input: string
 }
 
-class AddTodo extends React.Component<Props, State> {
-    constructor(props: Props) {
+class AddTodo extends React.Component<PropsFromRedux, State> {
+    constructor(props: PropsFromRedux) {
         super(props);
         this.state = {input: ""};
     }
@@ -54,8 +49,5 @@ class AddTodo extends React.Component<Props, State> {
     }
 }
 
-export default connect<StateProps, DispatchProps, OwnProps>(
-    null,
-    mapDispatch
-)(AddTodo);
-// export default AddTodo;
+export default connector(AddTodo);
+
